@@ -45,7 +45,6 @@
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
 
-        // 🚀 PRELOADER
         Object.keys(SITE_CONFIG).forEach(key => {
             if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
                 let link = document.createElement('link');
@@ -60,7 +59,7 @@
 
     <style>
         /* =========================================================================
-           🚀 ZERO-LAG & NO-DISAPPEAR CSS ENGINE 🚀
+           🚀 ZERO-LAG CSS ENGINE (NO 3D HACKS) 🚀
            ========================================================================= */
         a { -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; text-decoration: none; display: block; }
         html { -webkit-text-size-adjust: 100%; overflow-x: hidden; } 
@@ -89,13 +88,17 @@
         .skeleton { background: #e2e8f0; color: transparent !important; }
 
         /* =========================================================================
-           🖼️ PROFILE HEADER
+           🖼️ PROFILE HEADER (WITH PREMIUM SHADOW)
            ========================================================================= */
         .hero-gallery { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
 
-        .side-thumb { width: 68px; height: 96px; border-radius: 18px; animation: floatHeader2D 3s ease-in-out infinite alternate; }
-        .side-thumb-left { border: 2.5px solid #a855f7; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25); }
-        .side-thumb-right { border: 2.5px solid #06b6d4; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25); animation-delay: 1.5s; }
+        .side-thumb { 
+            width: 68px; height: 96px; border-radius: 18px; 
+            animation: floatHeader2D 3s ease-in-out infinite alternate; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Added premium shadow */
+        }
+        .side-thumb-left { border: 2.5px solid #a855f7; }
+        .side-thumb-right { border: 2.5px solid #06b6d4; animation-delay: 1.5s; }
 
         @keyframes floatHeader2D { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } }
 
@@ -103,6 +106,7 @@
             position: relative; padding: 3.5px; border-radius: 50%;
             background: linear-gradient(135deg, #ef4444, #f43f5e, #3b82f6, #06b6d4); background-size: 200% 200%;
             animation: bgShift 4s ease infinite;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Added premium shadow */
         }
         @keyframes bgShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
@@ -126,7 +130,7 @@
         .online-dot { width: 7px; height: 7px; background: #16a34a; border-radius: 50%; }
 
         /* =========================================================================
-           🔗 1. BUTTON LINKS (CONTINUOUS BREATHE + PERFECT NO-GAP FLASH)
+           🔗 1. BUTTON LINKS (CONTINUOUS BREATHE + THUMBNAILS EXEMPTED FROM FLASH)
            ========================================================================= */
         .links-group { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
         .link-card {
@@ -144,7 +148,7 @@
         .card-green { background-color: #dcfce7; border: 2px solid #10b981; animation: pulseContinuousGreen 2.2s infinite ease-in-out 1.4s; }
         @keyframes pulseContinuousGreen { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35); } }
 
-        .thumb-container { position: relative; margin-right: 12px; flex-shrink: 0; }
+        .thumb-container { position: relative; margin-right: 12px; flex-shrink: 0; z-index: 5; } /* Thumbnail protected with high z-index */
         .card-thumb { width: 62px; height: 62px; border-radius: 20px; border: 2.5px solid #ffffff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1); }
         .mini-badge {
             position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -153,7 +157,7 @@
         @keyframes popBadge2D { 0% { transform: scale(0.9); } 100% { transform: scale(1.15); } }
         .card-pink .mini-badge { background: #f43f5e; } .card-blue .mini-badge { background: #3b82f6; } .card-green .mini-badge { background: #10b981; }
 
-        .text-info { flex: 1; text-align: left; }
+        .text-info { flex: 1; text-align: left; z-index: 2; }
         .card-title { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: -0.2px; }
         .card-subtext { font-size: 11px; color: #334155; font-weight: 700; margin-top: 3px; display: block; }
 
@@ -171,15 +175,13 @@
         .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
         .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); }
 
-        /* 🔥 PERFECT NO-GAP & NO-TRACE FLASH (3 Buttons, 1.5s per button = 4.5s cycle) 🔥 */
+        /* 🔥 PERFECT NO-GAP & NO-TRACE FLASH (Applied ONLY to Card Background & CTA, NOT Thumbnail) 🔥 */
         .link-card::before, .cta-btn::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            transform: translateX(-150%) skewX(-25deg); pointer-events: none; z-index: 5;
+            transform: translateX(-150%) skewX(-25deg); pointer-events: none; z-index: 3;
             animation: flashCycle3 4.5s infinite linear;
         }
-        
-        /* The flash moves from left to right within exactly 33.33% of the cycle, and hides completely */
         @keyframes flashCycle3 {
             0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
             1% { opacity: 1; }
@@ -188,14 +190,13 @@
             100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
         }
 
-        /* 0 delay, 1.5s delay, 3s delay. No gaps! */
         .links-group .link-card:nth-child(1)::before, .links-group .link-card:nth-child(1) .cta-btn::after { animation-delay: 0s; }
         .links-group .link-card:nth-child(2)::before, .links-group .link-card:nth-child(2) .cta-btn::after { animation-delay: 1.5s; }
         .links-group .link-card:nth-child(3)::before, .links-group .link-card:nth-child(3) .cta-btn::after { animation-delay: 3s; }
 
 
         /* =========================================================================
-           🖼️ 2. GALLERIES (SYNCED POP AND NO-GAP FLASH)
+           🖼️ 2. PHOTO GALLERY (BLUR REDUCED TO 1.5px & SYNCED FLASH/POP)
            ========================================================================= */
         .gallery-section { background: #ffffff; border-radius: 26px; padding: 14px; border: 1.5px dashed #cbd5e1; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04); margin-bottom: 16px; }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
@@ -204,36 +205,31 @@
         
         .photo-grid, .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* 🔥 SYNCED POP-UP: Pops exactly when the 4s flash passes over it 🔥 */
-        /* 4 items * 1.5s = 6s total cycle. Pop happens during the first 25% */
         @keyframes popCycle4 { 
             0%, 25%, 100% { transform: scale(1) translateY(0px); } 
             12.5% { transform: scale(1.04) translateY(-4px); } 
         }
 
-        .grid-item, .video-item {
+        .grid-item {
             position: relative; border-radius: 20px; overflow: hidden; display: block; background: #cbd5e1; z-index: 1;
             animation: popCycle4 6s infinite ease-in-out; 
+            border: 2.5px solid #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2);
         }
+        .grid-item:nth-child(1) { border-color: #f43f5e; }
+        .grid-item:nth-child(2) { border-color: #3b82f6; }
+        .grid-item:nth-child(3) { border-color: #10b981; }
+        .grid-item:nth-child(4) { border-color: #f59e0b; }
         
         .grid-item { aspect-ratio: 4 / 5; }
-        .video-item { aspect-ratio: 1 / 1; }
-        .grid-item:active, .video-item:active { transform: scale(0.96); transition: transform 0.1s; } 
+        .grid-item:active { transform: scale(0.96); transition: transform 0.1s; } 
 
-        .grid-item:nth-child(1) { border: 2.5px solid #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2); }
-        .grid-item:nth-child(2) { border: 2.5px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); }
-        .grid-item:nth-child(3) { border: 2.5px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
-        .grid-item:nth-child(4) { border: 2.5px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
-
-        /* 🔥 GRID SHIMMER LAYER (NO-GAP & NO-TRACE) 🔥 */
-        .grid-item::after, .video-item::after {
+        /* PHOTO FLASH LAYER */
+        .grid-item::after {
             content: ''; position: absolute; top: 0; left: 0; width: 150%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
             transform: translateX(-150%) skewX(-25deg); pointer-events: none; z-index: 5;
             animation: flashCycle4 6s infinite linear;
         }
-
-        /* Flash passes in exactly 25% of the 6-second cycle (1.5 seconds) */
         @keyframes flashCycle4 {
             0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
             2% { opacity: 1; }
@@ -241,28 +237,38 @@
             25% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
             100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
         }
-        
-        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR PHOTOS: 1.5s intervals (0 -> 1.5 -> 3 -> 4.5) 🔥 */
+
         .photo-grid > a:nth-child(1), .photo-grid > a:nth-child(1)::after { animation-delay: 0s; }
         .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
         .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 3s; }
         .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 4.5s; }
 
-        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR VIDEOS: 1.5s intervals 🔥 */
-        .video-grid > a:nth-child(1), .video-grid > a:nth-child(1)::after { animation-delay: 0s; }
-        .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
-        .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 3s; }
-        .video-grid > a:nth-child(4), .video-grid > a:nth-child(4)::after { animation-delay: 4.5s; }
+        /* =========================================================================
+           🎬 3. VIDEO CLIPS (BLUR REDUCED TO 1.5px, ZOOM POP, NO FLASH)
+           ========================================================================= */
+        .video-item {
+            position: relative; border-radius: 20px; overflow: hidden; display: block; background: #cbd5e1; z-index: 1;
+            /* 🔥 NO FLASH ANIMATION HERE, ONLY ZOOM POP 🔥 */
+            animation: popCycle4 6s infinite ease-in-out; 
+        }
+        
+        .video-item { aspect-ratio: 1 / 1; }
+        .video-item:active { transform: scale(0.96); transition: transform 0.1s; } 
 
         .video-item:nth-child(1) { border: 2.5px solid #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2); }
         .video-item:nth-child(2) { border: 2.5px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); }
         .video-item:nth-child(3) { border: 2.5px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
         .video-item:nth-child(4) { border: 2.5px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
 
-        /* 🔥 BLUR SECURE HACK 🔥 */
+        .video-grid > a:nth-child(1) { animation-delay: 0s; }
+        .video-grid > a:nth-child(2) { animation-delay: 1.5s; }
+        .video-grid > a:nth-child(3) { animation-delay: 3s; }
+        .video-grid > a:nth-child(4) { animation-delay: 4.5s; }
+
+        /* 🔥 BLUR REDUCED TO 1.5px FOR CLEARER LOOK 🔥 */
         .blur-img { 
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(2px); transform: scale(1.15); /* Hides dark border edge securely */
+            filter: blur(1.5px); transform: scale(1.1); 
         }
         
         .grid-overlay, .video-overlay {
@@ -309,7 +315,7 @@
 
     <div class="card">
         
-        <!-- Header Gallery -->
+        <!-- Header Gallery (With Premium Shadows) -->
         <div class="hero-gallery">
             <a id="el_link_profile_Left" href="#">
                 <img id="el_profile_Left" src="" class="side-thumb side-thumb-left skeleton" alt="preview" loading="eager">
@@ -435,7 +441,7 @@
             </div>
         </div>
 
-        <!-- 🎬 SECTION 2: FAKE VIDEO GRID 🎬 -->
+        <!-- 🎬 SECTION 2: FAKE VIDEO GRID (ZOOM POP, NO FLASH) 🎬 -->
         <div class="gallery-section video-section">
             <div class="gallery-header">
                 <span class="gallery-title">🎥 Featured Videos & Clips</span>
@@ -444,7 +450,7 @@
 
             <div class="video-grid">
                 
-                <a id="el_video_1_link" href="#" class="video-item item-pink">
+                <a id="el_video_1_link" href="#" class="video-item">
                     <img id="el_video_1_img" src="" alt="video1" class="blur-img skeleton" loading="eager">
                     <div class="video-overlay">
                         <div class="play-btn">
@@ -455,7 +461,7 @@
                     <span class="duration-tag">03:45</span>
                 </a>
 
-                <a id="el_video_2_link" href="#" class="video-item item-blue">
+                <a id="el_video_2_link" href="#" class="video-item">
                     <img id="el_video_2_img" src="" alt="video2" class="blur-img skeleton" loading="eager">
                     <div class="video-overlay">
                         <div class="play-btn">
@@ -466,7 +472,7 @@
                     <span class="duration-tag">05:12</span>
                 </a>
 
-                <a id="el_video_3_link" href="#" class="video-item item-green">
+                <a id="el_video_3_link" href="#" class="video-item">
                     <img id="el_video_3_img" src="" alt="video3" class="blur-img skeleton" loading="eager">
                     <div class="video-overlay">
                         <div class="play-btn">
@@ -477,7 +483,7 @@
                     <span class="duration-tag">02:18</span>
                 </a>
 
-                <a id="el_video_4_link" href="#" class="video-item item-gold">
+                <a id="el_video_4_link" href="#" class="video-item">
                     <img id="el_video_4_img" src="" alt="video4" class="blur-img skeleton" loading="eager">
                     <div class="video-overlay">
                         <div class="play-btn">

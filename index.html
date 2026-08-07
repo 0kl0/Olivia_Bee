@@ -86,10 +86,10 @@
             -webkit-user-select: none; -moz-user-select: none; user-select: none;
         }
 
-        /* ❌ NO 3D HACKS ON BODY (Prevents Disappearing Bug) */
+        /* ❌ NO CONTAIN, NO TRANSLATE Z on Body */
         body {
             background-color: #f1f5f9; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 14px 10px; 
+            padding: 14px 10px; -webkit-overflow-scrolling: touch; 
         }
 
         ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -98,7 +98,7 @@
 
         img { display: block; object-fit: cover; pointer-events: none; }
 
-        /* ❌ NO 3D HACKS ON CARD */
+        /* ❌ NO CONTAIN ON CARD */
         .card {
             width: 100%; max-width: 400px; background: #ffffff; border-radius: 36px; padding: 24px 16px 16px 16px;
             box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.8);
@@ -118,7 +118,6 @@
         .hero-gallery { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
         .hero-gallery a { display: block; text-decoration: none; }
 
-        /* ⚡ ANIMATION OPTIMIZED FOR GPU (No Lag) */
         .side-thumb {
             width: 68px; height: 96px; border-radius: 18px; 
             animation: floatHeader 3s ease-in-out infinite alternate;
@@ -126,7 +125,7 @@
         .side-thumb-left { border: 2.5px solid #a855f7; box-shadow: 0 6px 18px rgba(168, 85, 247, 0.35); }
         .side-thumb-right { border: 2.5px solid #06b6d4; box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35); animation-delay: 1.5s; }
 
-        @keyframes floatHeader { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(0,-5px,0); } }
+        @keyframes floatHeader { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } }
 
         .main-avatar-wrap {
             position: relative; padding: 3.5px; border-radius: 50%;
@@ -165,10 +164,9 @@
         .link-card::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background: linear-gradient(60deg, transparent 30%, rgba(255, 255, 255, 0.7) 50%, transparent 70%);
-            /* ⚡ translate3d fixes the lag ⚡ */
-            transform: translate3d(-100%,0,0) rotate(25deg); animation: cardShimmer 3.5s infinite ease-in-out; pointer-events: none; z-index: 1;
+            transform: rotate(25deg); animation: cardShimmer 3.5s infinite ease-in-out; pointer-events: none; z-index: 1;
         }
-        @keyframes cardShimmer { 0% { transform: translate3d(-100%,0,0) rotate(25deg); } 100% { transform: translate3d(100%,0,0) rotate(25deg); } }
+        @keyframes cardShimmer { 0% { transform: translateX(-100%) rotate(25deg); } 100% { transform: translateX(100%) rotate(25deg); } }
 
         .card-pink { background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%); border: 2px solid #f43f5e; box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.25); animation: pulse-pink 2.2s infinite ease-in-out; }
         @keyframes pulse-pink { 0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(244, 63, 94, 0.25); } 50% { transform: scale(1.02); box-shadow: 0 14px 30px 2px rgba(244, 63, 94, 0.45); } }
@@ -192,7 +190,7 @@
         .card-title { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: -0.2px; }
         .card-subtext { font-size: 11px; color: #334155; font-weight: 700; margin-top: 3px; }
 
-        /* 🔥 CTA BUTTONS 🔥 */
+        /* 🔥 PREMIUM MULTI-COLOR CTA BUTTONS 🔥 */
         .cta-btn {
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 11.5px; font-weight: 900; padding: 9px 15px; border-radius: 16px;
@@ -208,7 +206,7 @@
             animation: goldenShine 4s infinite;
         }
 
-        @keyframes goldenShine { 0% { transform: translate3d(-100%, -100%, 0); } 100% { transform: translate3d(100%, 100%, 0); } }
+        @keyframes goldenShine { 0% { transform: translateX(-100%) translateY(-100%); } 100% { transform: translateX(100%) translateY(100%); } }
         @keyframes ctaBounce { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .btn-icon { width: 13px; height: 13px; fill: currentColor; }
 
@@ -216,7 +214,9 @@
         .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45); }
         .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 6px 18px rgba(5, 150, 105, 0.45); }
 
-        /* GALLERIES */
+        /* =======================================================
+           🔥 GALLERIES - SCROLL LAG AND BLACK BORDER FIXED 🔥
+           ======================================================= */
         .gallery-section { background: #ffffff; border-radius: 26px; padding: 14px; border: 1.5px dashed #cbd5e1; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04); margin-bottom: 16px; }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
         .gallery-title { font-size: 13px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px; }
@@ -224,13 +224,19 @@
         
         .photo-grid, .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        @keyframes galleryFloatSubtle { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(0,-3px,0); } }
-        @keyframes galleryShimmer { 0% { transform: translate3d(-100%,0,0) rotate(30deg); } 25% { transform: translate3d(100%,0,0) rotate(30deg); } 100% { transform: translate3d(100%,0,0) rotate(30deg); } }
+        @keyframes galleryFloatSubtle { 0% { transform: translateY(0px); } 100% { transform: translateY(-3px); } }
+        /* ⚡ Shimmer lag fix: Use translate3d instead of rotate + translate to save GPU */
+        @keyframes galleryShimmer { 0% { transform: translate3d(-150%, 0, 0) rotate(30deg); } 25%, 100% { transform: translate3d(150%, 0, 0) rotate(30deg); } }
         @keyframes photoPop { 0%, 100% { transform: scale(1); } 12.5% { transform: scale(1.04); } 25% { transform: scale(1); } }
 
         .grid-item, .video-item {
             position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; text-decoration: none; display: block;
             animation: galleryFloatSubtle 2.5s ease-in-out infinite alternate, photoPop 4s infinite; 
+            
+            /* ⚡ LAG FIX: Tells GPU to treat this box as one flat layer so blur doesn't repaint */
+            isolation: isolate; 
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            background-color: #f1f5f9; /* ⚡ Prevents the black box from showing behind image */
         }
         
         .grid-item { aspect-ratio: 4 / 5; }
@@ -245,11 +251,10 @@
 
         .grid-item::after {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            /* ⚡ translate3d fixes the lag completely ⚡ */
-            transform: translate3d(-100%,0,0) rotate(30deg); animation: galleryShimmer 4s infinite ease-in-out; pointer-events: none; z-index: 3; 
+            transform: translate3d(-150%, 0, 0) rotate(30deg); animation: galleryShimmer 4s infinite ease-in-out; pointer-events: none; z-index: 3;
         }
         
-        /* 🔥 ORIGINAL DELAYS ARE SECURELY BACK (1, 2, 3, 4 flash sequentially) 🔥 */
+        /* 🔥 ORIGINAL DELAYS ARE BACK (1, 2, 3, 4 flash sequentially) 🔥 */
         .grid-item:nth-child(1), .grid-item:nth-child(1)::after { animation-delay: 0s; } 
         .grid-item:nth-child(2), .grid-item:nth-child(2)::after { animation-delay: 1s; }
         .grid-item:nth-child(3), .grid-item:nth-child(3)::after { animation-delay: 2s; } 
@@ -260,13 +265,12 @@
         .video-item.item-green { border: 2.5px solid #10b981; box-shadow: 0 6px 14px rgba(16, 185, 129, 0.25); animation-delay: 2.5s; }
         .video-item.item-gold { border: 2.5px solid #f59e0b; box-shadow: 0 6px 14px rgba(245, 158, 11, 0.25); animation-delay: 3.5s; }
 
-        /* 🔥 GPU ACCELERATED BLUR HACK (Stops lag 100%) 🔥 */
+        /* ⚡ BLACK BORDER FIX: Scale to 1.08 so the dark blur bleed hides outside the box ⚡ */
         .grid-item img, .video-item img { 
             width: 100%; height: 100%; 
-            filter: blur(1.5px); 
-            transform: translate3d(0,0,0); /* Converts image to simple flat bitmap so Blur calculation isn't repeated */
-            backface-visibility: hidden;
-            will-change: transform;
+            filter: blur(2px); 
+            transform: scale(1.08); 
+            background-color: #e2e8f0; 
         }
         
         .grid-overlay, .video-overlay {

@@ -45,7 +45,6 @@
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
 
-        // 🚀 PRELOADER
         Object.keys(SITE_CONFIG).forEach(key => {
             if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
                 let link = document.createElement('link');
@@ -60,9 +59,9 @@
 
     <style>
         /* =========================================================================
-           🚀 ZERO-LAG CSS ENGINE 🚀
+           🚀 ZERO-LAG CSS ENGINE (NO 3D HACKS) 🚀
            ========================================================================= */
-        a { -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; text-decoration: none; }
+        a { -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; text-decoration: none; display: block; }
         html { -webkit-text-size-adjust: 100%; overflow-x: hidden; } 
         *, body, html {
             margin: 0; padding: 0; box-sizing: border-box;
@@ -93,10 +92,7 @@
            ========================================================================= */
         .hero-gallery { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
 
-        .side-thumb {
-            width: 68px; height: 96px; border-radius: 18px; 
-            animation: floatHeader2D 3s ease-in-out infinite alternate;
-        }
+        .side-thumb { width: 68px; height: 96px; border-radius: 18px; animation: floatHeader2D 3s ease-in-out infinite alternate; }
         .side-thumb-left { border: 2.5px solid #a855f7; box-shadow: 0 4px 12px rgba(168, 85, 247, 0.25); }
         .side-thumb-right { border: 2.5px solid #06b6d4; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25); animation-delay: 1.5s; }
 
@@ -129,7 +125,7 @@
         .online-dot { width: 7px; height: 7px; background: #16a34a; border-radius: 50%; }
 
         /* =========================================================================
-           🔗 ACTION LINKS (WHITE SHIMMER & BUTTON PULSE)
+           🔗 1. BUTTON LINKS (SEQUENTIAL SLOW WHITE FLASH & SYNCED POP) 
            ========================================================================= */
         .links-group { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
         .link-card {
@@ -137,22 +133,36 @@
         }
         .link-card:active { transform: scale(0.97); transition: transform 0.1s; } 
 
-        /* 🔥 SLOWER WHITE SHIMMER ON CARDS (6s) 🔥 */
+        /* 🔥 SLOW WHITE SHIMMER (Duration: 9s) 🔥 */
         .link-card::before {
             content: ''; position: absolute; inset: 0;
             background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.7) 50%, transparent 80%);
-            background-size: 300% 100%; animation: shimmerBGWhite 6s infinite linear; pointer-events: none; z-index: -1;
+            background-size: 300% 100%; pointer-events: none; z-index: -1;
+            animation: shimmerBtn 9s infinite linear; 
         }
-        @keyframes shimmerBGWhite { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes shimmerBtn { 
+            0% { background-position: 200% 0; } 
+            15% { background-position: -200% 0; } 
+            100% { background-position: -200% 0; } 
+        }
 
-        .card-pink { background-color: #ffe4e6; border: 2px solid #f43f5e; animation: pulsePink2D 2.2s infinite ease-in-out; }
-        @keyframes pulsePink2D { 0%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(244, 63, 94, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(244, 63, 94, 0.35); } }
+        /* 🔥 SYNCED BUTTON POP (Pops exactly when the flash passes over) 🔥 */
+        @keyframes syncBtnPink { 
+            0%, 15%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(244, 63, 94, 0.2); } 
+            7.5% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(244, 63, 94, 0.4); } 
+        }
+        @keyframes syncBtnBlue { 
+            0%, 15%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2); } 
+            7.5% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); } 
+        }
+        @keyframes syncBtnGreen { 
+            0%, 15%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.2); } 
+            7.5% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4); } 
+        }
 
-        .card-blue { background-color: #dbeafe; border: 2px solid #3b82f6; animation: pulseBlue2D 2.2s infinite ease-in-out 0.7s; }
-        @keyframes pulseBlue2D { 0%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(59, 130, 246, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.35); } }
-
-        .card-green { background-color: #dcfce7; border: 2px solid #10b981; animation: pulseGreen2D 2.2s infinite ease-in-out 1.4s; }
-        @keyframes pulseGreen2D { 0%, 100% { transform: scale(1); box-shadow: 0 6px 15px rgba(16, 185, 129, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35); } }
+        .card-pink { background-color: #ffe4e6; border: 2px solid #f43f5e; animation: syncBtnPink 9s infinite; }
+        .card-blue { background-color: #dbeafe; border: 2px solid #3b82f6; animation: syncBtnBlue 9s infinite; }
+        .card-green { background-color: #dcfce7; border: 2px solid #10b981; animation: syncBtnGreen 9s infinite; }
 
         .thumb-container { position: relative; margin-right: 12px; flex-shrink: 0; }
         .card-thumb { width: 62px; height: 62px; border-radius: 20px; border: 2.5px solid #ffffff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1); }
@@ -167,47 +177,49 @@
         .card-title { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: -0.2px; }
         .card-subtext { font-size: 11px; color: #334155; font-weight: 700; margin-top: 3px; display: block; }
 
-        /* CTA BUTTONS */
         .cta-btn {
             display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 900; padding: 9px 15px; border-radius: 16px;
             text-transform: uppercase; letter-spacing: 0.6px; color: #ffffff; position: relative; overflow: hidden; z-index: 2;
-            border: 1.5px solid rgba(255, 255, 255, 0.4); animation: ctaBounce2D 2s infinite ease-in-out;
+            border: 1.5px solid rgba(255, 255, 255, 0.4); 
         }
-        @keyframes ctaBounce2D { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* 🔥 SLOWER BRIGHT WHITE SHINE ON CTA BUTTON (5s) 🔥 */
+        /* 🔥 SMALL INNER CTA FLASH (Synced with main card flash) 🔥 */
         .cta-btn::after {
             content: ''; position: absolute; inset: 0;
             background: linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.8) 50%, transparent 80%);
-            background-size: 300% 100%; animation: shimmerBGWhiteBtn 5s infinite linear; pointer-events: none;
+            background-size: 300% 100%; pointer-events: none;
+            animation: shimmerBtn 9s infinite linear; 
         }
-        @keyframes shimmerBGWhiteBtn { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
         .btn-icon { width: 13px; height: 13px; fill: currentColor; }
-        .card-pink .cta-btn { background: linear-gradient(135deg, #f43f5e, #be123c); box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3); }
-        .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
-        .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
+        .card-pink .cta-btn { background: linear-gradient(135deg, #f43f5e, #be123c); }
+        .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+        .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); }
+
+        /* 🔥 DELAYS FOR BUTTON SEQUENCE (Button 1 -> 2 -> 3) 🔥 */
+        .links-group .link-card:nth-child(1), .links-group .link-card:nth-child(1)::before, .links-group .link-card:nth-child(1) .cta-btn::after { animation-delay: 0s; }
+        .links-group .link-card:nth-child(2), .links-group .link-card:nth-child(2)::before, .links-group .link-card:nth-child(2) .cta-btn::after { animation-delay: 2s; }
+        .links-group .link-card:nth-child(3), .links-group .link-card:nth-child(3)::before, .links-group .link-card:nth-child(3) .cta-btn::after { animation-delay: 4s; }
 
         /* =========================================================================
-           🖼️ GALLERIES (SYNCED FLASH & POP-UP)
+           🖼️ 2. GALLERIES (SEQUENTIAL FLASH + POP-UP SYNCED)
            ========================================================================= */
-        .gallery-section { background: #ffffff; border-radius: 26px; padding: 14px; border: 1.5px dashed #cbd5e1; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04); margin-bottom: 16px; }
+        .gallery-section { background: #ffffff; border-radius: 26px; padding: 14px; border: 1.5px dashed #cbd5e1; margin-bottom: 16px; }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
         .gallery-title { font-size: 13px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px; }
         .gallery-badge { font-size: 10px; font-weight: 800; color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; padding: 2px 8px; border-radius: 10px; }
         
         .photo-grid, .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        @keyframes galleryPopSync { 
-            0% { transform: translateY(0px) scale(1); } 
-            10% { transform: translateY(-4px) scale(1.05); } /* Pop Up! */
-            20% { transform: translateY(0px) scale(1); } /* Back Down */
-            100% { transform: translateY(0px) scale(1); } 
+        /* 🔥 SYNCED POP-UP: Pops exactly when the flash passes over it (Duration 8s) 🔥 */
+        @keyframes syncGridPop { 
+            0%, 15%, 100% { transform: scale(1) translateY(0px); } 
+            7.5% { transform: scale(1.04) translateY(-4px); } 
         }
 
         .grid-item, .video-item {
             position: relative; border-radius: 20px; overflow: hidden; display: block; background: #cbd5e1; z-index: 1;
-            animation: galleryPopSync 4s ease-in-out infinite; 
+            animation: syncGridPop 8s infinite; 
         }
         
         .grid-item { aspect-ratio: 4 / 5; }
@@ -219,24 +231,30 @@
         .grid-item:nth-child(3) { border: 2.5px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
         .grid-item:nth-child(4) { border: 2.5px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
 
-        /* 🔥 SLOWER WHITE SHIMMER ON IMAGES (8s Duration) 🔥 */
+        /* 🔥 GRID SHIMMER LAYER 🔥 */
         .grid-item::after, .video-item::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.4) 50%, transparent 80%);
-            background-size: 300% 100%; animation: shimmerBG 8s infinite linear; pointer-events: none; z-index: 5;
+            background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%);
+            background-size: 300% 100%; pointer-events: none; z-index: 5;
+            animation: shimmerGrid 8s infinite linear;
         }
-        @keyframes shimmerBG { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes shimmerGrid { 
+            0% { background-position: 200% 0; } 
+            15% { background-position: -200% 0; } 
+            100% { background-position: -200% 0; } 
+        }
         
-        /* 🔥 PERFECT SEQUENTIAL DELAYS: 0, 2, 4, 6 seconds 🔥 */
+        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR PHOTOS: 1 -> 2 -> 3 -> 4 🔥 */
         .photo-grid > a:nth-child(1), .photo-grid > a:nth-child(1)::after { animation-delay: 0s; }
-        .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 2s; }
-        .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 4s; }
-        .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 6s; }
+        .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
+        .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 3s; }
+        .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 4.5s; }
 
+        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR VIDEOS: 1 -> 2 -> 3 -> 4 🔥 */
         .video-grid > a:nth-child(1), .video-grid > a:nth-child(1)::after { animation-delay: 0s; }
-        .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 2s; }
-        .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 4s; }
-        .video-grid > a:nth-child(4), .video-grid > a:nth-child(4)::after { animation-delay: 6s; }
+        .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
+        .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 3s; }
+        .video-grid > a:nth-child(4), .video-grid > a:nth-child(4)::after { animation-delay: 4.5s; }
 
         .video-item:nth-child(1) { border: 2.5px solid #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2); }
         .video-item:nth-child(2) { border: 2.5px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); }
@@ -246,7 +264,7 @@
         /* 🔥 BLUR SECURE HACK 🔥 */
         .blur-img { 
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(2px); transform: scale(1.15); 
+            filter: blur(2.5px); transform: scale(1.15); /* Hides dark border edge securely */
         }
         
         .grid-overlay, .video-overlay {
@@ -262,8 +280,7 @@
         .video-section { border-color: #3b82f6; background: #f8fafc; }
         .video-badge { color: #2563eb; background: #eff6ff; border-color: #bfdbfe; }
 
-        .play-btn { width: 36px; height: 36px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); animation: playPulse2D 1.8s infinite ease-in-out; }
-        @keyframes playPulse2D { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); } 50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); } }
+        .play-btn { width: 36px; height: 36px; background: rgba(255, 255, 255, 0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .play-btn svg { width: 16px; height: 16px; fill: #ef4444; margin-left: 2px; }
         .duration-tag { position: absolute; top: 8px; right: 8px; background: rgba(15, 23, 42, 0.85); color: #ffffff; font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 8px; letter-spacing: 0.5px; border: 1px solid rgba(255, 255, 255, 0.2); z-index: 3; }
 
@@ -489,7 +506,7 @@
 
     </div>
 
-    <!-- 🪟 POPUP MODAL HTML CONTAINER 🪟 -->
+    <!-- 🪟 POPUP MODAL 🪟 -->
     <div id="legal-modal-backdrop" class="modal-backdrop" onclick="closeModalOnBackdrop(event)">
         <div class="modal-box">
             <div class="modal-header">

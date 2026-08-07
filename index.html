@@ -45,6 +45,7 @@
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
 
+        // 🚀 PRELOADER
         Object.keys(SITE_CONFIG).forEach(key => {
             if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
                 let link = document.createElement('link');
@@ -136,11 +137,11 @@
         }
         .link-card:active { transform: scale(0.97); transition: transform 0.1s; } 
 
-        /* 🔥 WHITE SHIMMER ON CARDS 🔥 */
+        /* 🔥 SLOWER WHITE SHIMMER ON CARDS (6s) 🔥 */
         .link-card::before {
             content: ''; position: absolute; inset: 0;
             background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.7) 50%, transparent 80%);
-            background-size: 300% 100%; animation: shimmerBGWhite 3.5s infinite linear; pointer-events: none; z-index: -1;
+            background-size: 300% 100%; animation: shimmerBGWhite 6s infinite linear; pointer-events: none; z-index: -1;
         }
         @keyframes shimmerBGWhite { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
@@ -170,22 +171,22 @@
         .cta-btn {
             display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 900; padding: 9px 15px; border-radius: 16px;
             text-transform: uppercase; letter-spacing: 0.6px; color: #ffffff; position: relative; overflow: hidden; z-index: 2;
-            border: 1.5px solid rgba(255, 255, 255, 0.4); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); animation: ctaBounce2D 2s infinite ease-in-out;
+            border: 1.5px solid rgba(255, 255, 255, 0.4); animation: ctaBounce2D 2s infinite ease-in-out;
         }
         @keyframes ctaBounce2D { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* 🔥 BRIGHT WHITE SHINE ON CTA BUTTON 🔥 */
+        /* 🔥 SLOWER BRIGHT WHITE SHINE ON CTA BUTTON (5s) 🔥 */
         .cta-btn::after {
             content: ''; position: absolute; inset: 0;
             background: linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.8) 50%, transparent 80%);
-            background-size: 300% 100%; animation: shimmerBGWhiteBtn 3s infinite linear; pointer-events: none;
+            background-size: 300% 100%; animation: shimmerBGWhiteBtn 5s infinite linear; pointer-events: none;
         }
         @keyframes shimmerBGWhiteBtn { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
         .btn-icon { width: 13px; height: 13px; fill: currentColor; }
-        .card-pink .cta-btn { background: linear-gradient(135deg, #f43f5e, #be123c); }
-        .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-        .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); }
+        .card-pink .cta-btn { background: linear-gradient(135deg, #f43f5e, #be123c); box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3); }
+        .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
 
         /* =========================================================================
            🖼️ GALLERIES (SYNCED FLASH & POP-UP)
@@ -197,7 +198,6 @@
         
         .photo-grid, .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* 🔥 SYNCED POP-UP: Pops exactly when the flash passes over it 🔥 */
         @keyframes galleryPopSync { 
             0% { transform: translateY(0px) scale(1); } 
             10% { transform: translateY(-4px) scale(1.05); } /* Pop Up! */
@@ -219,29 +219,24 @@
         .grid-item:nth-child(3) { border: 2.5px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
         .grid-item:nth-child(4) { border: 2.5px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
 
-        /* 🔥 WHITE SHIMMER LAYER (Passes exactly during the 0%-20% timeframe of the pop) 🔥 */
+        /* 🔥 SLOWER WHITE SHIMMER ON IMAGES (8s Duration) 🔥 */
         .grid-item::after, .video-item::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; 
-            background: linear-gradient(60deg, transparent 40%, rgba(255, 255, 255, 0.6) 50%, transparent 60%);
-            z-index: 5; pointer-events: none;
-            animation: galleryShimmerSync 4s infinite ease-in-out;
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.4) 50%, transparent 80%);
+            background-size: 300% 100%; animation: shimmerBG 8s infinite linear; pointer-events: none; z-index: 5;
         }
-        @keyframes galleryShimmerSync { 
-            0% { transform: translateX(-100%) rotate(30deg); } 
-            20% { transform: translateX(100%) rotate(30deg); } /* Flash finishes at 20% mark */
-            100% { transform: translateX(100%) rotate(30deg); } /* Long pause */
-        }
+        @keyframes shimmerBG { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         
-        /* 🔥 PERFECT SEQUENTIAL DELAYS: 1, 2, 3, 4 🔥 */
+        /* 🔥 PERFECT SEQUENTIAL DELAYS: 0, 2, 4, 6 seconds 🔥 */
         .photo-grid > a:nth-child(1), .photo-grid > a:nth-child(1)::after { animation-delay: 0s; }
-        .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 1s; }
-        .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 2s; }
-        .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 3s; }
+        .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 2s; }
+        .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 4s; }
+        .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 6s; }
 
         .video-grid > a:nth-child(1), .video-grid > a:nth-child(1)::after { animation-delay: 0s; }
-        .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 1s; }
-        .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 2s; }
-        .video-grid > a:nth-child(4), .video-grid > a:nth-child(4)::after { animation-delay: 3s; }
+        .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 2s; }
+        .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 4s; }
+        .video-grid > a:nth-child(4), .video-grid > a:nth-child(4)::after { animation-delay: 6s; }
 
         .video-item:nth-child(1) { border: 2.5px solid #f43f5e; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2); }
         .video-item:nth-child(2) { border: 2.5px solid #3b82f6; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2); }
@@ -251,7 +246,7 @@
         /* 🔥 BLUR SECURE HACK 🔥 */
         .blur-img { 
             width: 100%; height: 100%; object-fit: cover;
-            filter: blur(2px); transform: scale(1.15); /* Hides dark border edge */
+            filter: blur(2px); transform: scale(1.15); 
         }
         
         .grid-overlay, .video-overlay {

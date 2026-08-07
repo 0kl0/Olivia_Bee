@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Olivia VIP Access </title>
+    <title>Olivia VIP Access</title>
 
     <!-- ========================================================================= -->
     <!-- ⚙️ কন্ট্রোল প্যানেল: আপনার সব লিংক ও ছবি এখান থেকে পরিবর্তন করুন ⚙️ -->
@@ -46,7 +46,7 @@
 
             // 🎬 [৬] ভিডিও সেকশনের ৪টি থাম্বনেইল এবং তাদের অফার লিংক (Video Gallery)
             video_1_link: "https://movementssubscriptionobjection.com/r05axw8z?key=495ee3e88a2fdb6c7d4480f03e826fa0",
-            video_1_img: "https://movementssubscriptionobjection.com/r05axw8z?key=495ee3e88a2fdb6c7d4480f03e826fa0",
+            video_1_img: "https://i.postimg.cc/D0BYXP93/file-00000000986481faa3fb51f52dfa2c7f.jpg",
 
             video_2_link: "https://movementssubscriptionobjection.com/r05axw8z?key=495ee3e88a2fdb6c7d4480f03e826fa0",
             video_2_img: "https://i.postimg.cc/D0BYXP93/file-00000000986481faa3fb51f52dfa2c7f.jpg",
@@ -57,22 +57,12 @@
             video_4_link: "https://movementssubscriptionobjection.com/r05axw8z?key=495ee3e88a2fdb6c7d4480f03e826fa0",
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
-
-        // 🚀 SUPER FAST PRELOADER: ছবিগুলো ব্রাউজারে আগে থেকেই ডাউনলোড করে রাখবে
-        Object.keys(SITE_CONFIG).forEach(key => {
-            if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
-                let link = document.createElement('link');
-                link.rel = 'preload'; link.as = 'image'; link.href = SITE_CONFIG[key]; link.fetchPriority = 'high';
-                document.head.appendChild(link);
-            }
-        });
     </script>
     <!-- ========================================================================= -->
 
     <!-- Domain Preconnect for Faster Connection -->
     <link rel="preconnect" href="https://blogger.googleusercontent.com" crossorigin>
     <link rel="preconnect" href="https://i.postimg.cc" crossorigin>
-    <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
 
     <style>
         a {
@@ -105,12 +95,12 @@
             text-align: center; transform: translateZ(0);
         }
 
-        /* 🌟 SKELETON LOADING (White Flash/Shimmer) 🌟 */
+        /* 🌟 SKELETON LOADING 🌟 */
         .skeleton {
             background: linear-gradient(90deg, #e2e8f0 25%, #ffffff 50%, #e2e8f0 75%);
             background-size: 200% 100%;
             animation: shimmerFlash 1.2s infinite ease-in-out;
-            color: transparent !important; /* Hides alt text */
+            color: transparent !important;
         }
         @keyframes shimmerFlash {
             0% { background-position: 200% 0; }
@@ -164,7 +154,7 @@
             display: flex; align-items: center; padding: 12px 14px; border-radius: 26px; text-decoration: none; position: relative; overflow: hidden;
             will-change: transform; transform: translateZ(0);
         }
-        .link-card:active { transform: scale(0.97) translateZ(0); } /* Instant redirect, removed delays */
+        .link-card:active { transform: scale(0.97) translateZ(0); }
 
         .link-card::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -195,7 +185,7 @@
         .card-title { font-size: 15px; font-weight: 900; color: #0f172a; letter-spacing: -0.2px; }
         .card-subtext { font-size: 11px; color: #334155; font-weight: 700; margin-top: 3px; }
 
-        /* 🔥 PREMIUM MULTI-COLOR CTA BUTTONS 🔥 */
+        /* CTA BUTTONS */
         .cta-btn {
             display: inline-flex; align-items: center; gap: 6px;
             font-size: 11.5px; font-weight: 900; padding: 9px 15px; border-radius: 16px;
@@ -433,7 +423,7 @@
             </div>
         </div>
 
-        <!-- 🎬 SECTION 2: FAKE VIDEO GRID 🎬 -->
+        <!-- 🎬 SECTION 2: VIDEO GRID 🎬 -->
         <div class="gallery-section video-section">
             <div class="gallery-header">
                 <span class="gallery-title">🎥 Featured Videos & Clips</span>
@@ -503,28 +493,29 @@
 
     </div>
 
-    <!-- 🪟 POPUP MODAL HTML CONTAINER 🪟 -->
+    <!-- 🪟 POPUP MODAL CONTAINER 🪟 -->
     <div id="legal-modal-backdrop" class="modal-backdrop" onclick="closeModalOnBackdrop(event)">
         <div class="modal-box">
             <div class="modal-header">
                 <span id="modal-title" class="modal-title">Privacy Policy</span>
                 <button type="button" class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div id="modal-body-content" class="modal-body">
-                <!-- Content injected dynamically via JavaScript -->
-            </div>
+            <div id="modal-body-content" class="modal-body"></div>
         </div>
     </div>
 
     <script>
-        // ⚡ Smart Loading & Image Assignment (Removes Skeleton smoothly when image loads)
-        document.addEventListener("DOMContentLoaded", () => {
-            const setLink = (id, url) => document.getElementById(id).href = url;
+        function initApp() {
+            const setLink = (id, url) => {
+                const el = document.getElementById(id);
+                if (el) el.href = url || "#";
+            };
+
             const setImg = (id, url) => {
-                let img = document.getElementById(id);
-                // When image successfully downloads, remove skeleton flash
+                const img = document.getElementById(id);
+                if (!img) return;
+                
                 img.onload = () => img.classList.remove('skeleton');
-                // Fallback image if broken, removes skeleton flash
                 img.onerror = () => { 
                     img.src = 'https://i.postimg.cc/X7vQGFQw/IMG-20260804-020054.jpg'; 
                     img.classList.remove('skeleton'); 
@@ -532,7 +523,7 @@
                 img.src = url;
             };
 
-            // Profile Top Section
+            // Top Profile Links & Images
             setLink('el_link_profile_Left', SITE_CONFIG.link_profile_Left);
             setImg('el_profile_Left', SITE_CONFIG.profile_Left);
 
@@ -563,11 +554,14 @@
                 setLink(`el_video_${i}_link`, SITE_CONFIG[`video_${i}_link`]);
                 setImg(`el_video_${i}_img`, SITE_CONFIG[`video_${i}_img`]);
             }
-        });
+        }
 
-        // ==========================================
-        // 📄 Privacy Policy & Terms Content
-        // ==========================================
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initApp);
+        } else {
+            initApp();
+        }
+
         const LEGAL_TEXTS = {
             privacy: `
                 <p>Welcome to our platform. We value your privacy and are committed to protecting your personal data.</p>
@@ -597,7 +591,6 @@
             `
         };
 
-        // 🪟 Popup Logic
         function openModal(type) {
             const backdrop = document.getElementById('legal-modal-backdrop');
             const title = document.getElementById('modal-title');
@@ -605,13 +598,12 @@
             
             title.innerText = type === 'privacy' ? 'Privacy Policy' : 'Terms of Service';
             body.innerHTML = LEGAL_TEXTS[type];
-            body.scrollTop = 0;
+                body.scrollTop = 0;
             backdrop.classList.add('active');
         }
         function closeModal() { document.getElementById('legal-modal-backdrop').classList.remove('active'); }
         function closeModalOnBackdrop(event) { if (event.target.id === 'legal-modal-backdrop') closeModal(); }
 
-        // 🔒 Security Features
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && [73,74,67].includes(e.keyCode)) || (e.ctrlKey && [85,83,65,67].includes(e.keyCode))) e.preventDefault();

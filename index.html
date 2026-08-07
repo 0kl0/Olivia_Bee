@@ -45,6 +45,7 @@
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
 
+        // 🚀 PRELOADER
         Object.keys(SITE_CONFIG).forEach(key => {
             if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
                 let link = document.createElement('link');
@@ -59,7 +60,7 @@
 
     <style>
         /* =========================================================================
-           🚀 ZERO-LAG CSS ENGINE (NO 3D HACKS) 🚀
+           🚀 ZERO-LAG & NO-DISAPPEAR CSS ENGINE 🚀
            ========================================================================= */
         a { -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; text-decoration: none; display: block; }
         html { -webkit-text-size-adjust: 100%; overflow-x: hidden; } 
@@ -85,30 +86,46 @@
             box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08); text-align: center; position: relative; z-index: 1;
         }
 
-        .skeleton { background: #e2e8f0; color: transparent !important; }
+        /* 🔥 NEW SKELETON LOADER (Smooth Pulsing Grid, NO Broken Icon) 🔥 */
+        .skeleton { 
+            background: linear-gradient(90deg, #cbd5e1 25%, #e2e8f0 50%, #cbd5e1 75%); 
+            background-size: 400% 100%; 
+            animation: skeletonLoading 1.5s infinite ease-in-out; 
+            color: transparent !important; 
+        }
+        @keyframes skeletonLoading { 
+            0% { background-position: 200% 0; } 
+            100% { background-position: -200% 0; } 
+        }
 
         /* =========================================================================
-           🖼️ PROFILE HEADER (WITH PREMIUM SHADOW)
+           🖼️ PROFILE HEADER (WITH PREMIUM SHADOWS)
            ========================================================================= */
         .hero-gallery { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 16px; }
 
         .side-thumb { 
             width: 68px; height: 96px; border-radius: 18px; 
             animation: floatHeader2D 3s ease-in-out infinite alternate; 
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Added premium shadow */
         }
-        .side-thumb-left { border: 2.5px solid #a855f7; }
-        .side-thumb-right { border: 2.5px solid #06b6d4; animation-delay: 1.5s; }
+        /* Purple Shadow */
+        .side-thumb-left { border: 2.5px solid #a855f7; box-shadow: 0 0 25px rgba(168, 85, 247, 0.65); }
+        /* Cyan Shadow */
+        .side-thumb-right { border: 2.5px solid #06b6d4; box-shadow: 0 0 25px rgba(6, 182, 212, 0.65); animation-delay: 1.5s; }
 
         @keyframes floatHeader2D { 0% { transform: translateY(0px); } 100% { transform: translateY(-5px); } }
 
+        /* Colorful Animated Glow */
         .main-avatar-wrap {
-            position: relative; padding: 3.5px; border-radius: 50%;
-            background: linear-gradient(135deg, #ef4444, #f43f5e, #3b82f6, #06b6d4); background-size: 200% 200%;
-            animation: bgShift 4s ease infinite;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); /* Added premium shadow */
+            position: relative; padding: 4px; border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444, #a855f7, #3b82f6, #06b6d4); background-size: 300% 300%;
+            animation: bgShift 4s ease infinite, avatarGlow 3s infinite alternate;
         }
         @keyframes bgShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes avatarGlow {
+            0% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.7); }
+            100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+        }
 
         .main-avatar { width: 125px; height: 125px; border-radius: 50%; border: 3px solid #ffffff; }
 
@@ -148,7 +165,8 @@
         .card-green { background-color: #dcfce7; border: 2px solid #10b981; animation: pulseContinuousGreen 2.2s infinite ease-in-out 1.4s; }
         @keyframes pulseContinuousGreen { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35); } }
 
-        .thumb-container { position: relative; margin-right: 12px; flex-shrink: 0; z-index: 5; } /* Thumbnail protected with high z-index */
+        /* Thumbnail protected with high z-index */
+        .thumb-container { position: relative; margin-right: 12px; flex-shrink: 0; z-index: 5; } 
         .card-thumb { width: 62px; height: 62px; border-radius: 20px; border: 2.5px solid #ffffff; box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1); }
         .mini-badge {
             position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -318,12 +336,13 @@
         <!-- Header Gallery (With Premium Shadows) -->
         <div class="hero-gallery">
             <a id="el_link_profile_Left" href="#">
-                <img id="el_profile_Left" src="" class="side-thumb side-thumb-left skeleton" alt="preview" loading="eager">
+                <!-- Empty base64 image prevents broken icon before JS loads the real image -->
+                <img id="el_profile_Left" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="side-thumb side-thumb-left skeleton" alt="preview">
             </a>
             
             <div class="main-avatar-wrap">
                 <a id="el_link_profile_Main" href="#">
-                    <img id="el_profile_Main" src="" class="main-avatar skeleton" alt="profile" loading="eager">
+                    <img id="el_profile_Main" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="main-avatar skeleton" alt="profile">
                 </a>
                 <div class="live-tag">
                     <span class="live-dot"></span> LIVE NOW
@@ -331,7 +350,7 @@
             </div>
 
             <a id="el_link_profile_Right" href="#">
-                <img id="el_profile_Right" src="" class="side-thumb side-thumb-right skeleton" alt="preview" loading="eager">
+                <img id="el_profile_Right" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="side-thumb side-thumb-right skeleton" alt="preview">
             </a>
         </div>
 
@@ -352,7 +371,7 @@
             
             <a id="el_offer_CallNow" href="#" class="link-card card-pink">
                 <div class="thumb-container">
-                    <img id="el_btnThumb_Call" src="" class="card-thumb skeleton" alt="thumb" loading="eager">
+                    <img id="el_btnThumb_Call" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="card-thumb skeleton" alt="thumb">
                     <span class="mini-badge">📞</span>
                 </div>
                 <div class="text-info">
@@ -367,7 +386,7 @@
 
             <a id="el_offer_WatchLive" href="#" class="link-card card-blue">
                 <div class="thumb-container">
-                    <img id="el_btnThumb_Live" src="" class="card-thumb skeleton" alt="thumb" loading="eager">
+                    <img id="el_btnThumb_Live" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="card-thumb skeleton" alt="thumb">
                     <span class="mini-badge">🎥</span>
                 </div>
                 <div class="text-info">
@@ -382,7 +401,7 @@
 
             <a id="el_offer_ChatNow" href="#" class="link-card card-green">
                 <div class="thumb-container">
-                    <img id="el_btnThumb_Chat" src="" class="card-thumb skeleton" alt="thumb" loading="eager">
+                    <img id="el_btnThumb_Chat" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="card-thumb skeleton" alt="thumb">
                     <span class="mini-badge">💬</span>
                 </div>
                 <div class="text-info">
@@ -407,7 +426,7 @@
             <div class="photo-grid">
                 
                 <a id="el_gallery_1_link" href="#" class="grid-item">
-                    <img id="el_gallery_1_img" src="" alt="photo1" class="blur-img skeleton" loading="eager">
+                    <img id="el_gallery_1_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="photo1" class="blur-img skeleton">
                     <div class="grid-overlay">
                         <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                         <span class="tap-unlock">Unlock Photo</span>
@@ -415,7 +434,7 @@
                 </a>
 
                 <a id="el_gallery_2_link" href="#" class="grid-item">
-                    <img id="el_gallery_2_img" src="" alt="photo2" class="blur-img skeleton" loading="eager">
+                    <img id="el_gallery_2_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="photo2" class="blur-img skeleton">
                     <div class="grid-overlay">
                         <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                         <span class="tap-unlock">Unlock Photo</span>
@@ -423,7 +442,7 @@
                 </a>
 
                 <a id="el_gallery_3_link" href="#" class="grid-item">
-                    <img id="el_gallery_3_img" src="" alt="photo3" class="blur-img skeleton" loading="eager">
+                    <img id="el_gallery_3_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="photo3" class="blur-img skeleton">
                     <div class="grid-overlay">
                         <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                         <span class="tap-unlock">Unlock Photo</span>
@@ -431,7 +450,7 @@
                 </a>
 
                 <a id="el_gallery_4_link" href="#" class="grid-item">
-                    <img id="el_gallery_4_img" src="" alt="photo4" class="blur-img skeleton" loading="eager">
+                    <img id="el_gallery_4_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="photo4" class="blur-img skeleton">
                     <div class="grid-overlay">
                         <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                         <span class="tap-unlock">Unlock Photo</span>
@@ -451,7 +470,7 @@
             <div class="video-grid">
                 
                 <a id="el_video_1_link" href="#" class="video-item">
-                    <img id="el_video_1_img" src="" alt="video1" class="blur-img skeleton" loading="eager">
+                    <img id="el_video_1_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="video1" class="blur-img skeleton">
                     <div class="video-overlay">
                         <div class="play-btn">
                             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -462,7 +481,7 @@
                 </a>
 
                 <a id="el_video_2_link" href="#" class="video-item">
-                    <img id="el_video_2_img" src="" alt="video2" class="blur-img skeleton" loading="eager">
+                    <img id="el_video_2_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="video2" class="blur-img skeleton">
                     <div class="video-overlay">
                         <div class="play-btn">
                             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -473,7 +492,7 @@
                 </a>
 
                 <a id="el_video_3_link" href="#" class="video-item">
-                    <img id="el_video_3_img" src="" alt="video3" class="blur-img skeleton" loading="eager">
+                    <img id="el_video_3_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="video3" class="blur-img skeleton">
                     <div class="video-overlay">
                         <div class="play-btn">
                             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -484,7 +503,7 @@
                 </a>
 
                 <a id="el_video_4_link" href="#" class="video-item">
-                    <img id="el_video_4_img" src="" alt="video4" class="blur-img skeleton" loading="eager">
+                    <img id="el_video_4_img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="video4" class="blur-img skeleton">
                     <div class="video-overlay">
                         <div class="play-btn">
                             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -525,20 +544,26 @@
     </div>
 
     <script>
+        // 🔥 SMART IMAGE PRE-LOADER (Fixes broken icon bug instantly) 🔥
         document.addEventListener("DOMContentLoaded", () => {
             const setLink = (id, url) => {
                 const el = document.getElementById(id);
                 if(el) el.href = url;
             };
+
             const setImg = (id, url) => {
                 let img = document.getElementById(id);
                 if(img) {
-                    img.onload = () => img.classList.remove('skeleton');
-                    img.onerror = () => { 
-                        img.src = 'https://i.postimg.cc/X7vQGFQw/IMG-20260804-020054.jpg'; 
+                    let tempImg = new Image();
+                    tempImg.onload = () => {
+                        img.src = url;
+                        img.classList.remove('skeleton'); // Removes pulsing background
+                    };
+                    tempImg.onerror = () => { 
+                        img.src = 'https://i.postimg.cc/X7vQGFQw/IMG-20260804-020054.jpg'; // Fallback
                         img.classList.remove('skeleton'); 
                     };
-                    img.src = url;
+                    tempImg.src = url; // Starts downloading the image secretly
                 }
             };
 

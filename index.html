@@ -45,6 +45,7 @@
             video_4_img: "https://i.postimg.cc/gJZFV8g7/file-0000000000ec8207a160b6f05667b21e.jpg"
         };
 
+        // 🚀 PRELOADER
         Object.keys(SITE_CONFIG).forEach(key => {
             if (key.includes('_img') || key.includes('profile_') || key.includes('btnThumb_')) {
                 let link = document.createElement('link');
@@ -59,7 +60,7 @@
 
     <style>
         /* =========================================================================
-           🚀 ZERO-LAG CSS ENGINE (NO 3D HACKS) 🚀
+           🚀 ZERO-LAG & NO-DISAPPEAR CSS ENGINE 🚀
            ========================================================================= */
         a { -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; text-decoration: none; display: block; }
         html { -webkit-text-size-adjust: 100%; overflow-x: hidden; } 
@@ -125,7 +126,7 @@
         .online-dot { width: 7px; height: 7px; background: #16a34a; border-radius: 50%; }
 
         /* =========================================================================
-           🔗 1. BUTTON LINKS (CONTINUOUS PULSE + SEQUENTIAL SHIMMER)
+           🔗 1. BUTTON LINKS (CONTINUOUS BREATHE + PERFECT NO-GAP FLASH)
            ========================================================================= */
         .links-group { display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px; }
         .link-card {
@@ -133,20 +134,7 @@
         }
         .link-card:active { transform: scale(0.97); transition: transform 0.1s; } 
 
-        /* 🔥 SEQUENTIAL SHIMMER OVER THE CARDS (9s Duration) 🔥 */
-        .link-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.7) 50%, transparent 80%);
-            background-size: 300% 100%; pointer-events: none; z-index: -1;
-            animation: shimmerBtn 9s infinite linear; 
-        }
-        @keyframes shimmerBtn { 
-            0% { background-position: 200% 0; } 
-            15% { background-position: -200% 0; } 
-            100% { background-position: -200% 0; } 
-        }
-
-        /* 🔥 CONTINUOUS ANIMATION "ALL THE TIME" ON 3 BUTTONS 🔥 */
+        /* 🔥 CONTINUOUS BREATHE ANIMATION (ALWAYS RUNNING) 🔥 */
         .card-pink { background-color: #ffe4e6; border: 2px solid #f43f5e; animation: pulseContinuousPink 2.2s infinite ease-in-out; }
         @keyframes pulseContinuousPink { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(244, 63, 94, 0.2); } 50% { transform: scale(1.02); box-shadow: 0 10px 20px rgba(244, 63, 94, 0.35); } }
 
@@ -178,26 +166,36 @@
         }
         @keyframes ctaBounce2D { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* 🔥 INNER CTA FLASH (Synced with main card flash) 🔥 */
-        .cta-btn::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.8) 50%, transparent 80%);
-            background-size: 300% 100%; pointer-events: none;
-            animation: shimmerBtn 9s infinite linear; 
-        }
-        
         .btn-icon { width: 13px; height: 13px; fill: currentColor; }
         .card-pink .cta-btn { background: linear-gradient(135deg, #f43f5e, #be123c); }
         .card-blue .cta-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
         .card-green .cta-btn { background: linear-gradient(135deg, #059669, #047857); }
 
-        /* 🔥 DELAYS FOR FLASH SEQUENCE (Button 1 -> 2 -> 3) 🔥 */
+        /* 🔥 PERFECT NO-GAP & NO-TRACE FLASH (3 Buttons, 1.5s per button = 4.5s cycle) 🔥 */
+        .link-card::before, .cta-btn::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transform: translateX(-150%) skewX(-25deg); pointer-events: none; z-index: 5;
+            animation: flashCycle3 4.5s infinite linear;
+        }
+        
+        /* The flash moves from left to right within exactly 33.33% of the cycle, and hides completely */
+        @keyframes flashCycle3 {
+            0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+            1% { opacity: 1; }
+            32% { opacity: 1; }
+            33.33% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
+            100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
+        }
+
+        /* 0 delay, 1.5s delay, 3s delay. No gaps! */
         .links-group .link-card:nth-child(1)::before, .links-group .link-card:nth-child(1) .cta-btn::after { animation-delay: 0s; }
-        .links-group .link-card:nth-child(2)::before, .links-group .link-card:nth-child(2) .cta-btn::after { animation-delay: 1.2s; }
-        .links-group .link-card:nth-child(3)::before, .links-group .link-card:nth-child(3) .cta-btn::after { animation-delay: 2.4s; }
+        .links-group .link-card:nth-child(2)::before, .links-group .link-card:nth-child(2) .cta-btn::after { animation-delay: 1.5s; }
+        .links-group .link-card:nth-child(3)::before, .links-group .link-card:nth-child(3) .cta-btn::after { animation-delay: 3s; }
+
 
         /* =========================================================================
-           🖼️ 2. GALLERIES (SYNCED POP AND FLASH)
+           🖼️ 2. GALLERIES (SYNCED POP AND NO-GAP FLASH)
            ========================================================================= */
         .gallery-section { background: #ffffff; border-radius: 26px; padding: 14px; border: 1.5px dashed #cbd5e1; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04); margin-bottom: 16px; }
         .gallery-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding: 0 2px; }
@@ -206,15 +204,16 @@
         
         .photo-grid, .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
-        /* 🔥 SYNCED POP-UP: Pops exactly when the flash passes over it (Duration 8s) 🔥 */
-        @keyframes syncGridPop { 
-            0%, 15%, 100% { transform: scale(1) translateY(0px); } 
-            7.5% { transform: scale(1.04) translateY(-4px); } 
+        /* 🔥 SYNCED POP-UP: Pops exactly when the 4s flash passes over it 🔥 */
+        /* 4 items * 1.5s = 6s total cycle. Pop happens during the first 25% */
+        @keyframes popCycle4 { 
+            0%, 25%, 100% { transform: scale(1) translateY(0px); } 
+            12.5% { transform: scale(1.04) translateY(-4px); } 
         }
 
         .grid-item, .video-item {
             position: relative; border-radius: 20px; overflow: hidden; display: block; background: #cbd5e1; z-index: 1;
-            animation: syncGridPop 8s infinite ease-in-out; 
+            animation: popCycle4 6s infinite ease-in-out; 
         }
         
         .grid-item { aspect-ratio: 4 / 5; }
@@ -226,26 +225,30 @@
         .grid-item:nth-child(3) { border: 2.5px solid #10b981; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); }
         .grid-item:nth-child(4) { border: 2.5px solid #f59e0b; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
 
-        /* 🔥 GRID SHIMMER LAYER 🔥 */
+        /* 🔥 GRID SHIMMER LAYER (NO-GAP & NO-TRACE) 🔥 */
         .grid-item::after, .video-item::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(60deg, transparent 20%, rgba(255, 255, 255, 0.45) 50%, transparent 80%);
-            background-size: 300% 100%; pointer-events: none; z-index: 5;
-            animation: shimmerGrid 8s infinite linear;
+            content: ''; position: absolute; top: 0; left: 0; width: 150%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: translateX(-150%) skewX(-25deg); pointer-events: none; z-index: 5;
+            animation: flashCycle4 6s infinite linear;
         }
-        @keyframes shimmerGrid { 
-            0% { background-position: 200% 0; } 
-            15% { background-position: -200% 0; } 
-            100% { background-position: -200% 0; } 
+
+        /* Flash passes in exactly 25% of the 6-second cycle (1.5 seconds) */
+        @keyframes flashCycle4 {
+            0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+            2% { opacity: 1; }
+            23% { opacity: 1; }
+            25% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
+            100% { transform: translateX(150%) skewX(-25deg); opacity: 0; }
         }
         
-        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR PHOTOS: 1 -> 2 -> 3 -> 4 🔥 */
+        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR PHOTOS: 1.5s intervals (0 -> 1.5 -> 3 -> 4.5) 🔥 */
         .photo-grid > a:nth-child(1), .photo-grid > a:nth-child(1)::after { animation-delay: 0s; }
         .photo-grid > a:nth-child(2), .photo-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
         .photo-grid > a:nth-child(3), .photo-grid > a:nth-child(3)::after { animation-delay: 3s; }
         .photo-grid > a:nth-child(4), .photo-grid > a:nth-child(4)::after { animation-delay: 4.5s; }
 
-        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR VIDEOS: 1 -> 2 -> 3 -> 4 🔥 */
+        /* 🔥 PERFECT SEQUENTIAL DELAYS FOR VIDEOS: 1.5s intervals 🔥 */
         .video-grid > a:nth-child(1), .video-grid > a:nth-child(1)::after { animation-delay: 0s; }
         .video-grid > a:nth-child(2), .video-grid > a:nth-child(2)::after { animation-delay: 1.5s; }
         .video-grid > a:nth-child(3), .video-grid > a:nth-child(3)::after { animation-delay: 3s; }
